@@ -5,6 +5,7 @@ using System.Net.Sockets;
 using lib60870;
 using lib60870.CS101;
 using lib60870.CS104;
+using NUnit.Framework.Legacy;
 
 namespace tests
 {
@@ -85,23 +86,22 @@ namespace tests
         public void TestStatusAndStatusChangedDetection ()
         {
             StatusAndStatusChangeDetection scd = new StatusAndStatusChangeDetection ();
+            ClassicAssert.AreEqual(false, scd.ST (0));
+            ClassicAssert.AreEqual (false, scd.ST (15));
+            ClassicAssert.AreEqual (false, scd.CD (0));
+            ClassicAssert.AreEqual (false, scd.CD (15));
 
-            Assert.AreEqual (false, scd.ST (0));
-            Assert.AreEqual (false, scd.ST (15));
-            Assert.AreEqual (false, scd.CD (0));
-            Assert.AreEqual (false, scd.CD (15));
-
-            Assert.AreEqual (false, scd.CD (1));
+            ClassicAssert.AreEqual (false, scd.CD (1));
 
             scd.CD (0, true);
 
-            Assert.AreEqual (true, scd.CD (0));
-            Assert.AreEqual (false, scd.CD (1));
+            ClassicAssert.AreEqual (true, scd.CD (0));
+            ClassicAssert.AreEqual (false, scd.CD (1));
 
             scd.CD (15, true);
 
-            Assert.AreEqual (true, scd.CD (15));
-            Assert.AreEqual (false, scd.CD (14));
+            ClassicAssert.AreEqual (true, scd.CD (15));
+            ClassicAssert.AreEqual (false, scd.CD (14));
         }
 
         [Test ()]
@@ -111,54 +111,54 @@ namespace tests
 
             bcr.Value = 1000;
 
-            Assert.AreEqual (1000, bcr.Value);
+            ClassicAssert.AreEqual (1000, bcr.Value);
 
             bcr.Value = -1000;
 
-            Assert.AreEqual (-1000, bcr.Value);
+            ClassicAssert.AreEqual (-1000, bcr.Value);
 
             bcr.SequenceNumber = 31;
 
-            Assert.AreEqual (31, bcr.SequenceNumber);
+            ClassicAssert.AreEqual (31, bcr.SequenceNumber);
 
             bcr.SequenceNumber = 0;
 
-            Assert.AreEqual (0, bcr.SequenceNumber);
+            ClassicAssert.AreEqual (0, bcr.SequenceNumber);
 
             /* Out of range sequenceNumber */
             bcr.SequenceNumber = 32;
 
-            Assert.AreEqual (0, bcr.SequenceNumber);
+            ClassicAssert.AreEqual (0, bcr.SequenceNumber);
 
             bcr = new BinaryCounterReading ();
 
             bcr.Invalid = true;
 
-            Assert.AreEqual (true, bcr.Invalid);
-            Assert.AreEqual (false, bcr.Carry);
-            Assert.AreEqual (false, bcr.Adjusted);
-            Assert.AreEqual (0, bcr.SequenceNumber);
-            Assert.AreEqual (0, bcr.Value);
+            ClassicAssert.AreEqual (true, bcr.Invalid);
+            ClassicAssert.AreEqual (false, bcr.Carry);
+            ClassicAssert.AreEqual (false, bcr.Adjusted);
+            ClassicAssert.AreEqual (0, bcr.SequenceNumber);
+            ClassicAssert.AreEqual (0, bcr.Value);
 
             bcr = new BinaryCounterReading ();
 
             bcr.Carry = true;
 
-            Assert.AreEqual (false, bcr.Invalid);
-            Assert.AreEqual (true, bcr.Carry);
-            Assert.AreEqual (false, bcr.Adjusted);
-            Assert.AreEqual (0, bcr.SequenceNumber);
-            Assert.AreEqual (0, bcr.Value);
+            ClassicAssert.AreEqual (false, bcr.Invalid);
+            ClassicAssert.AreEqual (true, bcr.Carry);
+            ClassicAssert.AreEqual (false, bcr.Adjusted);
+            ClassicAssert.AreEqual (0, bcr.SequenceNumber);
+            ClassicAssert.AreEqual (0, bcr.Value);
 
             bcr = new BinaryCounterReading ();
 
             bcr.Adjusted = true;
 
-            Assert.AreEqual (false, bcr.Invalid);
-            Assert.AreEqual (false, bcr.Carry);
-            Assert.AreEqual (true, bcr.Adjusted);
-            Assert.AreEqual (0, bcr.SequenceNumber);
-            Assert.AreEqual (0, bcr.Value);
+            ClassicAssert.AreEqual (false, bcr.Invalid);
+            ClassicAssert.AreEqual (false, bcr.Carry);
+            ClassicAssert.AreEqual (true, bcr.Adjusted);
+            ClassicAssert.AreEqual (0, bcr.SequenceNumber);
+            ClassicAssert.AreEqual (0, bcr.Value);
 
 
         }
@@ -168,30 +168,30 @@ namespace tests
         {
             ScaledValue scaledValue = new ScaledValue (0);
 
-            Assert.AreEqual (0, scaledValue.Value);
-            Assert.AreEqual ((short)0, scaledValue.ShortValue);
+            ClassicAssert.AreEqual (0, scaledValue.Value);
+            ClassicAssert.AreEqual ((short)0, scaledValue.ShortValue);
 
             scaledValue = new ScaledValue (32767);
-            Assert.AreEqual (32767, scaledValue.Value);
-            Assert.AreEqual ((short)32767, scaledValue.ShortValue);
+            ClassicAssert.AreEqual (32767, scaledValue.Value);
+            ClassicAssert.AreEqual ((short)32767, scaledValue.ShortValue);
 
             scaledValue = new ScaledValue (32768);
-            Assert.AreEqual (32767, scaledValue.Value);
-            Assert.AreEqual ((short)32767, scaledValue.ShortValue);
+            ClassicAssert.AreEqual (32767, scaledValue.Value);
+            ClassicAssert.AreEqual ((short)32767, scaledValue.ShortValue);
 
             scaledValue = new ScaledValue (-32768);
-            Assert.AreEqual (-32768, scaledValue.Value);
-            Assert.AreEqual ((short)-32768, scaledValue.ShortValue);
+            ClassicAssert.AreEqual (-32768, scaledValue.Value);
+            ClassicAssert.AreEqual ((short)-32768, scaledValue.ShortValue);
 
             scaledValue = new ScaledValue (-32769);
-            Assert.AreEqual (-32768, scaledValue.Value);
-            Assert.AreEqual ((short)-32768, scaledValue.ShortValue);
+            ClassicAssert.AreEqual (-32768, scaledValue.Value);
+            ClassicAssert.AreEqual ((short)-32768, scaledValue.ShortValue);
 
             scaledValue = new ScaledValue(-1);
-            Assert.AreEqual(-1, scaledValue.Value);
+            ClassicAssert.AreEqual(-1, scaledValue.Value);
 
             scaledValue = new ScaledValue(-300);
-            Assert.AreEqual(-300, scaledValue.Value);
+            ClassicAssert.AreEqual(-300, scaledValue.Value);
         }
 
         [Test ()]
@@ -200,23 +200,23 @@ namespace tests
             SetpointCommandNormalized sc = new SetpointCommandNormalized (102, -0.5f,
                 new SetpointCommandQualifier (true, 0));
 
-            Assert.AreEqual (102, sc.ObjectAddress);
+            ClassicAssert.AreEqual (102, sc.ObjectAddress);
 
-            Assert.AreEqual (-0.5f, sc.NormalizedValue, 0.001f);
+            ClassicAssert.AreEqual (-0.5f, sc.NormalizedValue, 0.001f);
 
-            Assert.AreEqual (true, sc.QOS.Select);
+            ClassicAssert.AreEqual (true, sc.QOS.Select);
 
             sc = new SetpointCommandNormalized (102, 32767, new SetpointCommandQualifier (true, 0));
 
-            Assert.AreEqual (1.0, sc.NormalizedValue, 0.001f);
+            ClassicAssert.AreEqual (1.0, sc.NormalizedValue, 0.001f);
 
-            Assert.AreEqual (32767, sc.RawValue);
+            ClassicAssert.AreEqual (32767, sc.RawValue);
 
             sc = new SetpointCommandNormalized (102, -32768, new SetpointCommandQualifier (true, 0));
 
-            Assert.AreEqual (-1.0, sc.NormalizedValue, 0.001f);
+            ClassicAssert.AreEqual (-1.0, sc.NormalizedValue, 0.001f);
 
-            Assert.AreEqual (-32768, sc.RawValue);
+            ClassicAssert.AreEqual (-32768, sc.RawValue);
         }
 
         [Test ()]
@@ -224,8 +224,8 @@ namespace tests
         {
             StepPositionInformation spi = new StepPositionInformation (103, 27, false, new QualityDescriptor ());
 
-            Assert.IsFalse (spi.Transient);
-            Assert.NotNull (spi.Quality);
+            ClassicAssert.IsFalse (spi.Transient);
+            ClassicAssert.NotNull (spi.Quality);
 
             spi = null;
 
@@ -234,7 +234,7 @@ namespace tests
             } catch (ArgumentOutOfRangeException) {
             }
 
-            Assert.IsNull (spi);
+            ClassicAssert.IsNull (spi);
 
             try {
                 spi = new StepPositionInformation (103, -65, false, new QualityDescriptor ());
@@ -265,7 +265,7 @@ namespace tests
                 se = ex;
             }
 
-            Assert.IsNull (se);
+            ClassicAssert.IsNull (se);
 
             Thread.Sleep (100);
 
@@ -275,9 +275,9 @@ namespace tests
                 se = ex;
             }
 
-            Assert.IsNotNull (se);
-            Assert.AreEqual (se.Message, "already connected");
-            Assert.AreEqual (10056, ((SocketException)se.InnerException).ErrorCode);
+            ClassicAssert.IsNotNull (se);
+            ClassicAssert.AreEqual (se.Message, "already connected");
+            ClassicAssert.AreEqual (10056, ((SocketException)se.InnerException).ErrorCode);
 
             connection.Close ();
 
@@ -324,9 +324,9 @@ namespace tests
                 se = ex;
             }
 
-            Assert.IsNotNull(se);
-            Assert.AreEqual(se.Message, "not connected");
-            Assert.AreEqual(10057, ((SocketException)se.InnerException).ErrorCode);
+            ClassicAssert.IsNotNull(se);
+            ClassicAssert.AreEqual(se.Message, "not connected");
+            ClassicAssert.AreEqual(10057, ((SocketException)se.InnerException).ErrorCode);
 
             server.Stop();
         }
@@ -356,7 +356,7 @@ namespace tests
                 se = ex;
             }
 
-            Assert.IsNull (se);
+            ClassicAssert.IsNull (se);
 
             try {
                 connection.Connect ();
@@ -366,7 +366,7 @@ namespace tests
                 se = ex;
             }
 
-            Assert.Null (se);
+            ClassicAssert.Null (se);
 
             connection.Close ();
 
@@ -423,11 +423,11 @@ namespace tests
                     connection.Close();
                 }
                 catch (ConnectionException ex)
-                { 
+                {
                     se = ex;
                 }
 
-                Assert.IsNotNull(se);
+                ClassicAssert.IsNotNull(se);
 
                 server.Start();
             }
@@ -455,7 +455,7 @@ namespace tests
                 ae = e;
             }
 
-            Assert.NotNull (ae);
+            ClassicAssert.NotNull (ae);
         }
 
         [Test ()]
@@ -472,7 +472,7 @@ namespace tests
                 addedCounter++;
             }
 
-            Assert.AreEqual (60, addedCounter);
+            ClassicAssert.AreEqual (60, addedCounter);
 
             asdu = new ASDU (cp, CauseOfTransmission.PERIODIC, false, false, 0, 1, true);
 
@@ -484,7 +484,7 @@ namespace tests
                 addedCounter++;
             }
 
-            Assert.AreEqual (127, addedCounter);
+            ClassicAssert.AreEqual (127, addedCounter);
 
             asdu = new ASDU (cp, CauseOfTransmission.PERIODIC, false, false, 0, 1, false);
 
@@ -496,7 +496,7 @@ namespace tests
                 addedCounter++;
             }
 
-            Assert.AreEqual (34, addedCounter);
+            ClassicAssert.AreEqual (34, addedCounter);
 
             asdu = new ASDU (cp, CauseOfTransmission.PERIODIC, false, false, 0, 1, true);
 
@@ -508,7 +508,7 @@ namespace tests
                 addedCounter++;
             }
 
-            Assert.AreEqual (30, addedCounter);
+            ClassicAssert.AreEqual (30, addedCounter);
 
             asdu = new ASDU (cp, CauseOfTransmission.PERIODIC, false, false, 0, 1, false);
 
@@ -520,7 +520,7 @@ namespace tests
                 addedCounter++;
             }
 
-            Assert.AreEqual (16, addedCounter);
+            ClassicAssert.AreEqual (16, addedCounter);
         }
 
         [Test ()]
@@ -531,25 +531,25 @@ namespace tests
 
             bool encoded = asdu.AddInformationObject (new SinglePointInformation (100, false, new QualityDescriptor ()));
 
-            Assert.IsTrue (encoded);
+            ClassicAssert.IsTrue (encoded);
 
             encoded = asdu.AddInformationObject (new SinglePointInformation (101, false, new QualityDescriptor ()));
 
-            Assert.IsTrue (encoded);
+            ClassicAssert.IsTrue (encoded);
 
             encoded = asdu.AddInformationObject (new SinglePointInformation (102, false, new QualityDescriptor ()));
 
-            Assert.IsTrue (encoded);
+            ClassicAssert.IsTrue (encoded);
 
             encoded = asdu.AddInformationObject (new SinglePointInformation (104, false, new QualityDescriptor ()));
 
-            Assert.IsFalse (encoded);
+            ClassicAssert.IsFalse (encoded);
 
             encoded = asdu.AddInformationObject (new SinglePointInformation (102, false, new QualityDescriptor ()));
 
-            Assert.IsFalse (encoded);
+            ClassicAssert.IsFalse (encoded);
 
-            Assert.AreEqual (3, asdu.NumberOfElements);
+            ClassicAssert.AreEqual (3, asdu.NumberOfElements);
         }
 
 
@@ -567,8 +567,8 @@ namespace tests
                 addedCounter++;
             }
 
-            Assert.AreEqual (60, addedCounter);
-            Assert.NotNull (asdu.AsByteArray ());
+            ClassicAssert.AreEqual (60, addedCounter);
+            ClassicAssert.NotNull (asdu.AsByteArray ());
 
 
             asdu = new ASDU (cp, CauseOfTransmission.PERIODIC, false, false, 0, 1, false);
@@ -580,8 +580,8 @@ namespace tests
                 addedCounter++;
             }
 
-            Assert.AreEqual (34, addedCounter);
-            Assert.NotNull (asdu.AsByteArray ());
+            ClassicAssert.AreEqual (34, addedCounter);
+            ClassicAssert.NotNull (asdu.AsByteArray ());
 
 
             asdu = new ASDU (cp, CauseOfTransmission.PERIODIC, false, false, 0, 1, false);
@@ -593,8 +593,8 @@ namespace tests
                 addedCounter++;
             }
 
-            Assert.AreEqual (22, addedCounter);
-            Assert.NotNull (asdu.AsByteArray ());
+            ClassicAssert.AreEqual (22, addedCounter);
+            ClassicAssert.NotNull (asdu.AsByteArray ());
 
 
             asdu = new ASDU (cp, CauseOfTransmission.PERIODIC, false, false, 0, 1, false);
@@ -606,8 +606,8 @@ namespace tests
                 addedCounter++;
             }
 
-            Assert.AreEqual (60, addedCounter);
-            Assert.NotNull (asdu.AsByteArray ());
+            ClassicAssert.AreEqual (60, addedCounter);
+            ClassicAssert.NotNull (asdu.AsByteArray ());
 
 
             asdu = new ASDU (cp, CauseOfTransmission.PERIODIC, false, false, 0, 1, false);
@@ -619,8 +619,8 @@ namespace tests
                 addedCounter++;
             }
 
-            Assert.AreEqual (34, addedCounter);
-            Assert.NotNull (asdu.AsByteArray ());
+            ClassicAssert.AreEqual (34, addedCounter);
+            ClassicAssert.NotNull (asdu.AsByteArray ());
 
 
             asdu = new ASDU (cp, CauseOfTransmission.PERIODIC, false, false, 0, 1, false);
@@ -632,8 +632,8 @@ namespace tests
                 addedCounter++;
             }
 
-            Assert.AreEqual (22, addedCounter);
-            Assert.NotNull (asdu.AsByteArray ());
+            ClassicAssert.AreEqual (22, addedCounter);
+            ClassicAssert.NotNull (asdu.AsByteArray ());
 
 
             asdu = new ASDU (cp, CauseOfTransmission.PERIODIC, false, false, 0, 1, false);
@@ -645,8 +645,8 @@ namespace tests
                 addedCounter++;
             }
 
-            Assert.AreEqual (40, addedCounter);
-            Assert.NotNull (asdu.AsByteArray ());
+            ClassicAssert.AreEqual (40, addedCounter);
+            ClassicAssert.NotNull (asdu.AsByteArray ());
 
 
             asdu = new ASDU (cp, CauseOfTransmission.PERIODIC, false, false, 0, 1, false);
@@ -658,8 +658,8 @@ namespace tests
                 addedCounter++;
             }
 
-            Assert.AreEqual (27, addedCounter);
-            Assert.NotNull (asdu.AsByteArray ());
+            ClassicAssert.AreEqual (27, addedCounter);
+            ClassicAssert.NotNull (asdu.AsByteArray ());
 
 
             asdu = new ASDU (cp, CauseOfTransmission.PERIODIC, false, false, 0, 1, false);
@@ -671,8 +671,8 @@ namespace tests
                 addedCounter++;
             }
 
-            Assert.AreEqual (18, addedCounter);
-            Assert.NotNull (asdu.AsByteArray ());
+            ClassicAssert.AreEqual (18, addedCounter);
+            ClassicAssert.NotNull (asdu.AsByteArray ());
 
 
             asdu = new ASDU (cp, CauseOfTransmission.PERIODIC, false, false, 0, 1, false);
@@ -684,8 +684,8 @@ namespace tests
                 addedCounter++;
             }
 
-            Assert.AreEqual (40, addedCounter);
-            Assert.NotNull (asdu.AsByteArray ());
+            ClassicAssert.AreEqual (40, addedCounter);
+            ClassicAssert.NotNull (asdu.AsByteArray ());
 
 
             asdu = new ASDU (cp, CauseOfTransmission.PERIODIC, false, false, 0, 1, false);
@@ -697,8 +697,8 @@ namespace tests
                 addedCounter++;
             }
 
-            Assert.AreEqual (27, addedCounter);
-            Assert.NotNull (asdu.AsByteArray ());
+            ClassicAssert.AreEqual (27, addedCounter);
+            ClassicAssert.NotNull (asdu.AsByteArray ());
 
 
             asdu = new ASDU (cp, CauseOfTransmission.PERIODIC, false, false, 0, 1, false);
@@ -710,8 +710,8 @@ namespace tests
                 addedCounter++;
             }
 
-            Assert.AreEqual (18, addedCounter);
-            Assert.NotNull (asdu.AsByteArray ());
+            ClassicAssert.AreEqual (18, addedCounter);
+            ClassicAssert.NotNull (asdu.AsByteArray ());
 
 
             asdu = new ASDU (cp, CauseOfTransmission.PERIODIC, false, false, 0, 1, false);
@@ -723,8 +723,8 @@ namespace tests
                 addedCounter++;
             }
 
-            Assert.AreEqual (30, addedCounter);
-            Assert.NotNull (asdu.AsByteArray ());
+            ClassicAssert.AreEqual (30, addedCounter);
+            ClassicAssert.NotNull (asdu.AsByteArray ());
 
 
             asdu = new ASDU (cp, CauseOfTransmission.PERIODIC, false, false, 0, 1, false);
@@ -736,8 +736,8 @@ namespace tests
                 addedCounter++;
             }
 
-            Assert.AreEqual (22, addedCounter);
-            Assert.NotNull (asdu.AsByteArray ());
+            ClassicAssert.AreEqual (22, addedCounter);
+            ClassicAssert.NotNull (asdu.AsByteArray ());
 
 
             asdu = new ASDU (cp, CauseOfTransmission.PERIODIC, false, false, 0, 1, false);
@@ -749,8 +749,8 @@ namespace tests
                 addedCounter++;
             }
 
-            Assert.AreEqual (16, addedCounter);
-            Assert.NotNull (asdu.AsByteArray ());
+            ClassicAssert.AreEqual (16, addedCounter);
+            ClassicAssert.NotNull (asdu.AsByteArray ());
 
 
             asdu = new ASDU (cp, CauseOfTransmission.PERIODIC, false, false, 0, 1, false);
@@ -762,8 +762,8 @@ namespace tests
                 addedCounter++;
             }
 
-            Assert.AreEqual (48, addedCounter);
-            Assert.NotNull (asdu.AsByteArray ());
+            ClassicAssert.AreEqual (48, addedCounter);
+            ClassicAssert.NotNull (asdu.AsByteArray ());
 
 
             asdu = new ASDU (cp, CauseOfTransmission.PERIODIC, false, false, 0, 1, false);
@@ -775,8 +775,8 @@ namespace tests
                 addedCounter++;
             }
 
-            Assert.AreEqual (30, addedCounter);
-            Assert.NotNull (asdu.AsByteArray ());
+            ClassicAssert.AreEqual (30, addedCounter);
+            ClassicAssert.NotNull (asdu.AsByteArray ());
 
 
             asdu = new ASDU (cp, CauseOfTransmission.PERIODIC, false, false, 0, 1, false);
@@ -788,8 +788,8 @@ namespace tests
                 addedCounter++;
             }
 
-            Assert.AreEqual (20, addedCounter);
-            Assert.NotNull (asdu.AsByteArray ());
+            ClassicAssert.AreEqual (20, addedCounter);
+            ClassicAssert.NotNull (asdu.AsByteArray ());
 
 
             asdu = new ASDU (cp, CauseOfTransmission.PERIODIC, false, false, 0, 1, false);
@@ -801,8 +801,8 @@ namespace tests
                 addedCounter++;
             }
 
-            Assert.AreEqual (30, addedCounter);
-            Assert.NotNull (asdu.AsByteArray ());
+            ClassicAssert.AreEqual (30, addedCounter);
+            ClassicAssert.NotNull (asdu.AsByteArray ());
 
 
             asdu = new ASDU (cp, CauseOfTransmission.PERIODIC, false, false, 0, 1, false);
@@ -814,8 +814,8 @@ namespace tests
                 addedCounter++;
             }
 
-            Assert.AreEqual (22, addedCounter);
-            Assert.NotNull (asdu.AsByteArray ());
+            ClassicAssert.AreEqual (22, addedCounter);
+            ClassicAssert.NotNull (asdu.AsByteArray ());
 
 
             asdu = new ASDU (cp, CauseOfTransmission.PERIODIC, false, false, 0, 1, false);
@@ -827,8 +827,8 @@ namespace tests
                 addedCounter++;
             }
 
-            Assert.AreEqual (16, addedCounter);
-            Assert.NotNull (asdu.AsByteArray ());
+            ClassicAssert.AreEqual (16, addedCounter);
+            ClassicAssert.NotNull (asdu.AsByteArray ());
 
             asdu = new ASDU (cp, CauseOfTransmission.PERIODIC, false, false, 0, 1, false);
             addedCounter = 0;
@@ -839,8 +839,8 @@ namespace tests
                 addedCounter++;
             }
 
-            Assert.AreEqual (27, addedCounter);
-            Assert.NotNull (asdu.AsByteArray ());
+            ClassicAssert.AreEqual (27, addedCounter);
+            ClassicAssert.NotNull (asdu.AsByteArray ());
 
 
             asdu = new ASDU (cp, CauseOfTransmission.PERIODIC, false, false, 0, 1, false);
@@ -852,8 +852,8 @@ namespace tests
                 addedCounter++;
             }
 
-            Assert.AreEqual (18, addedCounter);
-            Assert.NotNull (asdu.AsByteArray ());
+            ClassicAssert.AreEqual (18, addedCounter);
+            ClassicAssert.NotNull (asdu.AsByteArray ());
 
 
             asdu = new ASDU (cp, CauseOfTransmission.PERIODIC, false, false, 0, 1, false);
@@ -865,8 +865,8 @@ namespace tests
                 addedCounter++;
             }
 
-            Assert.AreEqual (30, addedCounter);
-            Assert.NotNull (asdu.AsByteArray ());
+            ClassicAssert.AreEqual (30, addedCounter);
+            ClassicAssert.NotNull (asdu.AsByteArray ());
 
             asdu = new ASDU (cp, CauseOfTransmission.PERIODIC, false, false, 0, 1, false);
             addedCounter = 0;
@@ -877,8 +877,8 @@ namespace tests
                 addedCounter++;
             }
 
-            Assert.AreEqual (24, addedCounter);
-            Assert.NotNull (asdu.AsByteArray ());
+            ClassicAssert.AreEqual (24, addedCounter);
+            ClassicAssert.NotNull (asdu.AsByteArray ());
 
             asdu = new ASDU (cp, CauseOfTransmission.PERIODIC, false, false, 0, 1, false);
             addedCounter = 0;
@@ -889,8 +889,8 @@ namespace tests
                 addedCounter++;
             }
 
-            Assert.AreEqual (17, addedCounter);
-            Assert.NotNull (asdu.AsByteArray ());
+            ClassicAssert.AreEqual (17, addedCounter);
+            ClassicAssert.NotNull (asdu.AsByteArray ());
 
             asdu = new ASDU (cp, CauseOfTransmission.PERIODIC, false, false, 0, 1, false);
             addedCounter = 0;
@@ -901,8 +901,8 @@ namespace tests
                 addedCounter++;
             }
 
-            Assert.AreEqual (24, addedCounter);
-            Assert.NotNull (asdu.AsByteArray ());
+            ClassicAssert.AreEqual (24, addedCounter);
+            ClassicAssert.NotNull (asdu.AsByteArray ());
 
 
             asdu = new ASDU (cp, CauseOfTransmission.PERIODIC, false, false, 0, 1, false);
@@ -914,8 +914,8 @@ namespace tests
                 addedCounter++;
             }
 
-            Assert.AreEqual (17, addedCounter);
-            Assert.NotNull (asdu.AsByteArray ());
+            ClassicAssert.AreEqual (17, addedCounter);
+            ClassicAssert.NotNull (asdu.AsByteArray ());
             //TODO add missing tests
         }
 
@@ -933,8 +933,8 @@ namespace tests
                 addedCounter++;
             }
 
-            Assert.AreEqual (127, addedCounter);
-            Assert.NotNull (asdu.AsByteArray ());
+            ClassicAssert.AreEqual (127, addedCounter);
+            ClassicAssert.NotNull (asdu.AsByteArray ());
 
 
             asdu = new ASDU (cp, CauseOfTransmission.PERIODIC, false, false, 0, 1, true);
@@ -946,8 +946,8 @@ namespace tests
                 addedCounter++;
             }
 
-            Assert.AreEqual (127, addedCounter);
-            Assert.NotNull (asdu.AsByteArray ());
+            ClassicAssert.AreEqual (127, addedCounter);
+            ClassicAssert.NotNull (asdu.AsByteArray ());
 
 
             asdu = new ASDU (cp, CauseOfTransmission.PERIODIC, false, false, 0, 1, true);
@@ -960,8 +960,8 @@ namespace tests
             }
 
 
-            Assert.AreEqual (80, addedCounter);
-            Assert.NotNull (asdu.AsByteArray ());
+            ClassicAssert.AreEqual (80, addedCounter);
+            ClassicAssert.NotNull (asdu.AsByteArray ());
 
             asdu = new ASDU (cp, CauseOfTransmission.PERIODIC, false, false, 0, 1, true);
             addedCounter = 0;
@@ -972,8 +972,8 @@ namespace tests
                 addedCounter++;
             }
 
-            Assert.AreEqual (80, addedCounter);
-            Assert.NotNull (asdu.AsByteArray ());
+            ClassicAssert.AreEqual (80, addedCounter);
+            ClassicAssert.NotNull (asdu.AsByteArray ());
 
 
             asdu = new ASDU (cp, CauseOfTransmission.PERIODIC, false, false, 0, 1, true);
@@ -985,8 +985,8 @@ namespace tests
                 addedCounter++;
             }
 
-            Assert.AreEqual (48, addedCounter);
-            Assert.NotNull (asdu.AsByteArray ());
+            ClassicAssert.AreEqual (48, addedCounter);
+            ClassicAssert.NotNull (asdu.AsByteArray ());
 
 
             asdu = new ASDU (cp, CauseOfTransmission.PERIODIC, false, false, 0, 1, true);
@@ -998,8 +998,8 @@ namespace tests
                 addedCounter++;
             }
 
-            Assert.AreEqual (120, addedCounter);
-            Assert.NotNull (asdu.AsByteArray ());
+            ClassicAssert.AreEqual (120, addedCounter);
+            ClassicAssert.NotNull (asdu.AsByteArray ());
 
 
             asdu = new ASDU (cp, CauseOfTransmission.PERIODIC, false, false, 0, 1, true);
@@ -1011,8 +1011,8 @@ namespace tests
                 addedCounter++;
             }
 
-            Assert.AreEqual (48, addedCounter);
-            Assert.NotNull (asdu.AsByteArray ());
+            ClassicAssert.AreEqual (48, addedCounter);
+            ClassicAssert.NotNull (asdu.AsByteArray ());
 
 
             asdu = new ASDU (cp, CauseOfTransmission.PERIODIC, false, false, 0, 1, true);
@@ -1024,8 +1024,8 @@ namespace tests
                 addedCounter++;
             }
 
-            Assert.AreEqual (48, addedCounter);
-            Assert.NotNull (asdu.AsByteArray ());
+            ClassicAssert.AreEqual (48, addedCounter);
+            ClassicAssert.NotNull (asdu.AsByteArray ());
 
 
             asdu = new ASDU (cp, CauseOfTransmission.PERIODIC, false, false, 0, 1, true);
@@ -1037,8 +1037,8 @@ namespace tests
                 addedCounter++;
             }
 
-            Assert.AreEqual (34, addedCounter);
-            Assert.NotNull (asdu.AsByteArray ());
+            ClassicAssert.AreEqual (34, addedCounter);
+            ClassicAssert.NotNull (asdu.AsByteArray ());
 
             asdu = new ASDU (cp, CauseOfTransmission.PERIODIC, false, false, 0, 1, true);
             addedCounter = 0;
@@ -1049,8 +1049,8 @@ namespace tests
                 addedCounter++;
             }
 
-            Assert.AreEqual (34, addedCounter);
-            Assert.NotNull (asdu.AsByteArray ());
+            ClassicAssert.AreEqual (34, addedCounter);
+            ClassicAssert.NotNull (asdu.AsByteArray ());
 
         }
 
@@ -1079,21 +1079,21 @@ namespace tests
 
             connection.SendASDU (asdu);
 
-            Assert.AreEqual (2, connection.GetStatistics ().SentMsgCounter); /* STARTDT + ASDU */
+            ClassicAssert.AreEqual (2, connection.GetStatistics ().SentMsgCounter); /* STARTDT + ASDU */
 
             while (connection.GetStatistics ().RcvdMsgCounter < 2)
                 Thread.Sleep (1);
 
-            Assert.AreEqual (2, connection.GetStatistics ().RcvdMsgCounter); /* STARTDT_CON + ASDU */
+            ClassicAssert.AreEqual (2, connection.GetStatistics ().RcvdMsgCounter); /* STARTDT_CON + ASDU */
 
             Thread.Sleep (2500);
 
             connection.Close ();
             server.Stop ();
 
-            Assert.AreEqual (4, connection.GetStatistics ().RcvdMsgCounter); /* STARTDT_CON + ASDU + TESTFR_CON */
+            ClassicAssert.AreEqual (4, connection.GetStatistics ().RcvdMsgCounter); /* STARTDT_CON + ASDU + TESTFR_CON */
 
-            Assert.AreEqual (2, connection.GetStatistics ().RcvdTestFrConCounter);
+            ClassicAssert.AreEqual (2, connection.GetStatistics ().RcvdTestFrConCounter);
         }
 
 
@@ -1137,17 +1137,17 @@ namespace tests
 
             connection.SendASDU (asdu);
 
-            Assert.AreEqual (2, connection.GetStatistics ().SentMsgCounter); /* STARTDT + ASDU */
+            ClassicAssert.AreEqual (2, connection.GetStatistics ().SentMsgCounter); /* STARTDT + ASDU */
 
             while (connection.GetStatistics ().RcvdMsgCounter < 2)
                 Thread.Sleep (1);
 
-            Assert.AreEqual (2, connection.GetStatistics ().RcvdMsgCounter); /* STARTDT_CON + ASDU */
+            ClassicAssert.AreEqual (2, connection.GetStatistics ().RcvdMsgCounter); /* STARTDT_CON + ASDU */
 
             Thread.Sleep (6000);
 
             // Expect connection to be closed due to three missing TESTFR_CON responses
-            Assert.IsFalse (connection.IsRunning);
+            ClassicAssert.IsFalse (connection.IsRunning);
 
             ConnectionException ce = null;
 
@@ -1158,15 +1158,15 @@ namespace tests
                 ce = e;
             }
 
-            Assert.IsNotNull (ce);
-            Assert.AreEqual ("not connected", ce.Message);
+            ClassicAssert.IsNotNull (ce);
+            ClassicAssert.AreEqual ("not connected", ce.Message);
 
             connection.Close ();
             server.Stop ();
 
-            Assert.AreEqual (5, connection.GetStatistics ().RcvdMsgCounter); /* STARTDT_CON + ASDU + TESTFR_CON */
+            ClassicAssert.AreEqual (5, connection.GetStatistics ().RcvdMsgCounter); /* STARTDT_CON + ASDU + TESTFR_CON */
 
-            Assert.AreEqual (0, connection.GetStatistics ().RcvdTestFrConCounter);
+            ClassicAssert.AreEqual (0, connection.GetStatistics ().RcvdTestFrConCounter);
         }
 
         private static bool testSendTestFRTimeoutSlaveRawMessageHandler (object param, byte [] msg, int msgSize)
@@ -1205,12 +1205,12 @@ namespace tests
 
             connection.Connect ();
 
-            Assert.AreEqual (1, connection.GetStatistics ().SentMsgCounter); /* STARTDT */
+            ClassicAssert.AreEqual (1, connection.GetStatistics ().SentMsgCounter); /* STARTDT */
 
             while (connection.GetStatistics ().RcvdMsgCounter < 1)
                 Thread.Sleep (1);
 
-            Assert.AreEqual (1, connection.GetStatistics ().RcvdMsgCounter); /* STARTDT_CON */
+            ClassicAssert.AreEqual (1, connection.GetStatistics ().RcvdMsgCounter); /* STARTDT_CON */
 
             Thread.Sleep (6000);
 
@@ -1231,9 +1231,9 @@ namespace tests
             connection.Close ();
             server.Stop ();
 
-            //	Assert.AreEqual (5, connection.GetStatistics ().RcvdMsgCounter); /* STARTDT_CON + ASDU + TESTFR_CON */
+            //	ClassicAssert.AreEqual (5, connection.GetStatistics ().RcvdMsgCounter); /* STARTDT_CON + ASDU + TESTFR_CON */
 
-            //	Assert.AreEqual (0, connection.GetStatistics ().RcvdTestFrConCounter);
+            //	ClassicAssert.AreEqual (0, connection.GetStatistics ().RcvdTestFrConCounter);
         }
 
 
@@ -1273,7 +1273,7 @@ namespace tests
             connection.Close ();
             server.Stop ();
 
-            Assert.AreEqual (sendValue, recvValue, 0.001);
+            ClassicAssert.AreEqual (sendValue, recvValue, 0.001);
         }
 
         [Test ()]
@@ -1320,7 +1320,7 @@ namespace tests
             connection.Close ();
             server.Stop ();
 
-            Assert.AreEqual (sendValue, recvValue);
+            ClassicAssert.AreEqual (sendValue, recvValue);
 
         }
 
@@ -1329,23 +1329,23 @@ namespace tests
         {
             SingleCommand sc = new SingleCommand (10002, true, false, 12);
 
-            Assert.AreEqual (10002, sc.ObjectAddress);
-            Assert.AreEqual (true, sc.State);
-            Assert.AreEqual (false, sc.Select);
-            Assert.AreEqual (12, sc.QU);
+            ClassicAssert.AreEqual (10002, sc.ObjectAddress);
+            ClassicAssert.AreEqual (true, sc.State);
+            ClassicAssert.AreEqual (false, sc.Select);
+            ClassicAssert.AreEqual (12, sc.QU);
 
             sc = new SingleCommand (10002, false, true, 3);
 
-            Assert.AreEqual (10002, sc.ObjectAddress);
-            Assert.AreEqual (false, sc.State);
-            Assert.AreEqual (true, sc.Select);
-            Assert.AreEqual (3, sc.QU);
+            ClassicAssert.AreEqual (10002, sc.ObjectAddress);
+            ClassicAssert.AreEqual (false, sc.State);
+            ClassicAssert.AreEqual (true, sc.Select);
+            ClassicAssert.AreEqual (3, sc.QU);
 
             sc.QU = 17;
 
-            Assert.AreEqual (17, sc.QU);
-            Assert.AreEqual (false, sc.State);
-            Assert.AreEqual (true, sc.Select);
+            ClassicAssert.AreEqual (17, sc.QU);
+            ClassicAssert.AreEqual (false, sc.State);
+            ClassicAssert.AreEqual (true, sc.Select);
         }
 
         [Test ()]
@@ -1369,7 +1369,7 @@ namespace tests
 
                     SinglePointInformation spn = (SinglePointInformation)asdu.GetElement (0);
 
-                    Assert.AreEqual (spi.Value, spn.Value);
+                    ClassicAssert.AreEqual (spi.Value, spn.Value);
                     hasReceived = true;
                 }
 
@@ -1402,19 +1402,19 @@ namespace tests
             SinglePointInformation spi = new SinglePointInformation (101, true, new QualityDescriptor ());
 
             spi.Encode (bf, alParameters, true);
-            Assert.AreEqual (1, bf.GetMsgSize ());
+            ClassicAssert.AreEqual (1, bf.GetMsgSize ());
 
             bf.ResetFrame ();
 
             spi.Encode (bf, alParameters, false);
 
-            Assert.AreEqual (alParameters.SizeOfIOA + spi.GetEncodedSize (), bf.GetMsgSize ());
-            Assert.AreEqual (4, bf.GetMsgSize ());
+            ClassicAssert.AreEqual (alParameters.SizeOfIOA + spi.GetEncodedSize (), bf.GetMsgSize ());
+            ClassicAssert.AreEqual (4, bf.GetMsgSize ());
 
             SinglePointInformation spi2 = new SinglePointInformation (alParameters, buffer, 0, false);
 
-            Assert.AreEqual (101, spi2.ObjectAddress);
-            Assert.AreEqual (true, spi2.Value);
+            ClassicAssert.AreEqual (101, spi2.ObjectAddress);
+            ClassicAssert.AreEqual (true, spi2.Value);
         }
 
         [Test ()]
@@ -1432,16 +1432,16 @@ namespace tests
 
             spi.Encode (bf, alParameters, false);
 
-            Assert.AreEqual (alParameters.SizeOfIOA + spi.GetEncodedSize (), bf.GetMsgSize ());
-            Assert.AreEqual (7, bf.GetMsgSize ());
+            ClassicAssert.AreEqual (alParameters.SizeOfIOA + spi.GetEncodedSize (), bf.GetMsgSize ());
+            ClassicAssert.AreEqual (7, bf.GetMsgSize ());
 
             SinglePointWithCP24Time2a spi2 = new SinglePointWithCP24Time2a (alParameters, buffer, 0, false);
 
-            Assert.AreEqual (102, spi2.ObjectAddress);
-            Assert.AreEqual (false, spi2.Value);
-            Assert.AreEqual (45, spi2.Timestamp.Minute);
-            Assert.AreEqual (23, spi2.Timestamp.Second);
-            Assert.AreEqual (538, spi2.Timestamp.Millisecond);
+            ClassicAssert.AreEqual (102, spi2.ObjectAddress);
+            ClassicAssert.AreEqual (false, spi2.Value);
+            ClassicAssert.AreEqual (45, spi2.Timestamp.Minute);
+            ClassicAssert.AreEqual (23, spi2.Timestamp.Second);
+            ClassicAssert.AreEqual (538, spi2.Timestamp.Millisecond);
         }
 
         [Test ()]
@@ -1461,20 +1461,20 @@ namespace tests
 
             spi.Encode (bf, alParameters, false);
 
-            Assert.AreEqual (alParameters.SizeOfIOA + spi.GetEncodedSize (), bf.GetMsgSize ());
-            Assert.AreEqual (11, bf.GetMsgSize ());
+            ClassicAssert.AreEqual (alParameters.SizeOfIOA + spi.GetEncodedSize (), bf.GetMsgSize ());
+            ClassicAssert.AreEqual (11, bf.GetMsgSize ());
 
             SinglePointWithCP56Time2a spi2 = new SinglePointWithCP56Time2a (alParameters, buffer, 0, false);
 
-            Assert.AreEqual (103, spi2.ObjectAddress);
-            Assert.AreEqual (true, spi2.Value);
+            ClassicAssert.AreEqual (103, spi2.ObjectAddress);
+            ClassicAssert.AreEqual (true, spi2.Value);
 
-            Assert.AreEqual (time.Year, spi2.Timestamp.Year);
-            Assert.AreEqual (time.Month, spi2.Timestamp.Month);
-            Assert.AreEqual (time.DayOfMonth, spi2.Timestamp.DayOfMonth);
-            Assert.AreEqual (time.Minute, spi2.Timestamp.Minute);
-            Assert.AreEqual (time.Second, spi2.Timestamp.Second);
-            Assert.AreEqual (time.Millisecond, spi2.Timestamp.Millisecond);
+            ClassicAssert.AreEqual (time.Year, spi2.Timestamp.Year);
+            ClassicAssert.AreEqual (time.Month, spi2.Timestamp.Month);
+            ClassicAssert.AreEqual (time.DayOfMonth, spi2.Timestamp.DayOfMonth);
+            ClassicAssert.AreEqual (time.Minute, spi2.Timestamp.Minute);
+            ClassicAssert.AreEqual (time.Second, spi2.Timestamp.Second);
+            ClassicAssert.AreEqual (time.Millisecond, spi2.Timestamp.Millisecond);
         }
 
         [Test ()]
@@ -1489,19 +1489,19 @@ namespace tests
             DoublePointInformation dpi = new DoublePointInformation (101, DoublePointValue.OFF, new QualityDescriptor ());
 
             dpi.Encode (bf, alParameters, true);
-            Assert.AreEqual (1, bf.GetMsgSize ());
+            ClassicAssert.AreEqual (1, bf.GetMsgSize ());
 
             bf.ResetFrame ();
 
             dpi.Encode (bf, alParameters, false);
 
-            Assert.AreEqual (alParameters.SizeOfIOA + dpi.GetEncodedSize (), bf.GetMsgSize ());
-            Assert.AreEqual (4, bf.GetMsgSize ());
+            ClassicAssert.AreEqual (alParameters.SizeOfIOA + dpi.GetEncodedSize (), bf.GetMsgSize ());
+            ClassicAssert.AreEqual (4, bf.GetMsgSize ());
 
             DoublePointInformation dpi2 = new DoublePointInformation (alParameters, buffer, 0, false);
 
-            Assert.AreEqual (101, dpi2.ObjectAddress);
-            Assert.AreEqual (DoublePointValue.OFF, dpi2.Value);
+            ClassicAssert.AreEqual (101, dpi2.ObjectAddress);
+            ClassicAssert.AreEqual (DoublePointValue.OFF, dpi2.Value);
         }
 
         [Test ()]
@@ -1518,22 +1518,22 @@ namespace tests
             DoublePointWithCP24Time2a dpi = new DoublePointWithCP24Time2a (101, DoublePointValue.ON, new QualityDescriptor (), time);
 
             dpi.Encode (bf, alParameters, true);
-            Assert.AreEqual (4, bf.GetMsgSize ());
+            ClassicAssert.AreEqual (4, bf.GetMsgSize ());
 
             bf.ResetFrame ();
 
             dpi.Encode (bf, alParameters, false);
 
-            Assert.AreEqual (alParameters.SizeOfIOA + dpi.GetEncodedSize (), bf.GetMsgSize ());
-            Assert.AreEqual (7, bf.GetMsgSize ());
+            ClassicAssert.AreEqual (alParameters.SizeOfIOA + dpi.GetEncodedSize (), bf.GetMsgSize ());
+            ClassicAssert.AreEqual (7, bf.GetMsgSize ());
 
             DoublePointWithCP24Time2a dpi2 = new DoublePointWithCP24Time2a (alParameters, buffer, 0, false);
 
-            Assert.AreEqual (101, dpi2.ObjectAddress);
-            Assert.AreEqual (DoublePointValue.ON, dpi2.Value);
-            Assert.AreEqual (45, dpi2.Timestamp.Minute);
-            Assert.AreEqual (23, dpi2.Timestamp.Second);
-            Assert.AreEqual (538, dpi2.Timestamp.Millisecond);
+            ClassicAssert.AreEqual (101, dpi2.ObjectAddress);
+            ClassicAssert.AreEqual (DoublePointValue.ON, dpi2.Value);
+            ClassicAssert.AreEqual (45, dpi2.Timestamp.Minute);
+            ClassicAssert.AreEqual (23, dpi2.Timestamp.Second);
+            ClassicAssert.AreEqual (538, dpi2.Timestamp.Millisecond);
         }
 
         [Test ()]
@@ -1552,25 +1552,25 @@ namespace tests
             DoublePointWithCP56Time2a dpi = new DoublePointWithCP56Time2a (101, DoublePointValue.INTERMEDIATE, new QualityDescriptor (), time);
 
             dpi.Encode (bf, alParameters, true);
-            Assert.AreEqual (8, bf.GetMsgSize ());
+            ClassicAssert.AreEqual (8, bf.GetMsgSize ());
 
             bf.ResetFrame ();
 
             dpi.Encode (bf, alParameters, false);
 
-            Assert.AreEqual (alParameters.SizeOfIOA + dpi.GetEncodedSize (), bf.GetMsgSize ());
-            Assert.AreEqual (11, bf.GetMsgSize ());
+            ClassicAssert.AreEqual (alParameters.SizeOfIOA + dpi.GetEncodedSize (), bf.GetMsgSize ());
+            ClassicAssert.AreEqual (11, bf.GetMsgSize ());
 
             DoublePointWithCP56Time2a dpi2 = new DoublePointWithCP56Time2a (alParameters, buffer, 0, false);
 
-            Assert.AreEqual (101, dpi2.ObjectAddress);
-            Assert.AreEqual (DoublePointValue.INTERMEDIATE, dpi2.Value);
-            Assert.AreEqual (time.Year, dpi2.Timestamp.Year);
-            Assert.AreEqual (time.Month, dpi2.Timestamp.Month);
-            Assert.AreEqual (time.DayOfMonth, dpi2.Timestamp.DayOfMonth);
-            Assert.AreEqual (time.Minute, dpi2.Timestamp.Minute);
-            Assert.AreEqual (time.Second, dpi2.Timestamp.Second);
-            Assert.AreEqual (time.Millisecond, dpi2.Timestamp.Millisecond);
+            ClassicAssert.AreEqual (101, dpi2.ObjectAddress);
+            ClassicAssert.AreEqual (DoublePointValue.INTERMEDIATE, dpi2.Value);
+            ClassicAssert.AreEqual (time.Year, dpi2.Timestamp.Year);
+            ClassicAssert.AreEqual (time.Month, dpi2.Timestamp.Month);
+            ClassicAssert.AreEqual (time.DayOfMonth, dpi2.Timestamp.DayOfMonth);
+            ClassicAssert.AreEqual (time.Minute, dpi2.Timestamp.Minute);
+            ClassicAssert.AreEqual (time.Second, dpi2.Timestamp.Second);
+            ClassicAssert.AreEqual (time.Millisecond, dpi2.Timestamp.Millisecond);
         }
 
         [Test ()]
@@ -1578,15 +1578,15 @@ namespace tests
         {
             CP56Time2a time = new CP56Time2a ();
 
-            Assert.AreEqual (time.Year, 0);
+            ClassicAssert.AreEqual (time.Year, 0);
 
             time.Year = 2017;
 
-            Assert.AreEqual (time.Year, 17);
+            ClassicAssert.AreEqual (time.Year, 17);
 
             time.Year = 1980;
 
-            Assert.AreEqual (time.Year, 80);
+            ClassicAssert.AreEqual (time.Year, 80);
         }
 
         [Test ()]
@@ -1601,17 +1601,17 @@ namespace tests
             MeasuredValueNormalized mvn = new MeasuredValueNormalized (201, 0.5f, new QualityDescriptor ());
 
             mvn.Encode (bf, alParameters, true);
-            Assert.AreEqual (3, bf.GetMsgSize ());
+            ClassicAssert.AreEqual (3, bf.GetMsgSize ());
 
             bf.ResetFrame ();
 
             mvn.Encode (bf, alParameters, false);
-            Assert.AreEqual (alParameters.SizeOfIOA + mvn.GetEncodedSize (), bf.GetMsgSize ());
+            ClassicAssert.AreEqual (alParameters.SizeOfIOA + mvn.GetEncodedSize (), bf.GetMsgSize ());
 
             MeasuredValueNormalized mvn2 = new MeasuredValueNormalized (alParameters, buffer, 0, false);
 
-            Assert.AreEqual (201, mvn2.ObjectAddress);
-            Assert.AreEqual (0.5f, mvn2.NormalizedValue, 0.001);
+            ClassicAssert.AreEqual (201, mvn2.ObjectAddress);
+            ClassicAssert.AreEqual (0.5f, mvn2.NormalizedValue, 0.001);
         }
 
         public class SimpleFile : TransparentFile
@@ -1673,7 +1673,7 @@ namespace tests
 
             for (int i = 0; i < 100; i++)
                 fileData [i] = (byte)(i);
-               
+
             file.AddSection (fileData);
 
             server.GetAvailableFiles ().AddFile (file);
@@ -1687,12 +1687,12 @@ namespace tests
             con.GetFile (1, 30000, NameOfFile.TRANSPARENT_FILE, receiver);
 
             Thread.Sleep (3000);
-            Assert.IsTrue (receiver.finishedCalled);
-            Assert.AreEqual (100, receiver.recvdBytes);
-            Assert.AreEqual (1, receiver.lastSection);
+            ClassicAssert.IsTrue (receiver.finishedCalled);
+            ClassicAssert.AreEqual (100, receiver.recvdBytes);
+            ClassicAssert.AreEqual (1, receiver.lastSection);
 
             for (int i = 0; i < 100; i++) {
-                Assert.AreEqual (receiver.recvBuffer [i], i);
+                ClassicAssert.AreEqual (receiver.recvBuffer [i], i);
             }
 
             con.Close ();
@@ -1733,12 +1733,12 @@ namespace tests
             con.GetFile (1, 30000, NameOfFile.TRANSPARENT_FILE, receiver);
 
             Thread.Sleep (3000);
-            Assert.IsTrue (receiver.finishedCalled);
-            Assert.AreEqual (200, receiver.recvdBytes);
-            Assert.AreEqual (2, receiver.lastSection);
+            ClassicAssert.IsTrue (receiver.finishedCalled);
+            ClassicAssert.AreEqual (200, receiver.recvdBytes);
+            ClassicAssert.AreEqual (2, receiver.lastSection);
 
             for (int i = 0; i < 200; i++) {
-                Assert.AreEqual (receiver.recvBuffer [i], i);
+                ClassicAssert.AreEqual (receiver.recvBuffer [i], i);
             }
 
             con.Close ();
@@ -1779,13 +1779,13 @@ namespace tests
             con.GetFile(1, 30000, (NameOfFile) 12,  receiver);
 
             Thread.Sleep(3000);
-            Assert.IsTrue(receiver.finishedCalled);
-            Assert.AreEqual(200, receiver.recvdBytes);
-            Assert.AreEqual(2, receiver.lastSection);
+            ClassicAssert.IsTrue(receiver.finishedCalled);
+            ClassicAssert.AreEqual(200, receiver.recvdBytes);
+            ClassicAssert.AreEqual(2, receiver.lastSection);
 
             for (int i = 0; i < 200; i++)
             {
-                Assert.AreEqual(receiver.recvBuffer[i], i);
+                ClassicAssert.AreEqual(receiver.recvBuffer[i], i);
             }
 
             con.Close();
@@ -1820,14 +1820,14 @@ namespace tests
             con.GetFile (1, 30000, NameOfFile.TRANSPARENT_FILE, receiver);
 
             Thread.Sleep (3000);
-            Assert.IsTrue (receiver.finishedCalled);
-            Assert.AreEqual (1000, receiver.recvdBytes);
-            Assert.AreEqual (1, receiver.lastSection);
-            Assert.IsTrue (file.transferComplete);
-            Assert.IsTrue (file.success);
+            ClassicAssert.IsTrue (receiver.finishedCalled);
+            ClassicAssert.AreEqual (1000, receiver.recvdBytes);
+            ClassicAssert.AreEqual (1, receiver.lastSection);
+            ClassicAssert.IsTrue (file.transferComplete);
+            ClassicAssert.IsTrue (file.success);
 
             for (int i = 0; i < 1000; i++) {
-                Assert.AreEqual (receiver.recvBuffer [i], (byte) i);
+                ClassicAssert.AreEqual (receiver.recvBuffer [i], (byte) i);
             }
 
             con.Close ();
@@ -1866,12 +1866,12 @@ namespace tests
             con.SendFile (1, 30000, NameOfFile.TRANSPARENT_FILE, file);
 
             Thread.Sleep (3000);
-            Assert.IsTrue (receiver.finishedCalled);
-            Assert.AreEqual (100, receiver.recvdBytes);
-            Assert.AreEqual (1, receiver.lastSection);
+            ClassicAssert.IsTrue (receiver.finishedCalled);
+            ClassicAssert.AreEqual (100, receiver.recvdBytes);
+            ClassicAssert.AreEqual (1, receiver.lastSection);
 
             for (int i = 0; i < 100; i++) {
-                Assert.AreEqual (receiver.recvBuffer [i], i);
+                ClassicAssert.AreEqual (receiver.recvBuffer [i], i);
             }
 
             con.Close ();
@@ -1909,14 +1909,14 @@ namespace tests
             con.SendFile (1, 30000, NameOfFile.TRANSPARENT_FILE, file);
 
             Thread.Sleep (3000);
-            Assert.IsTrue (receiver.finishedCalled);
-            Assert.AreEqual (1000, receiver.recvdBytes);
-            Assert.AreEqual (1, receiver.lastSection);
-            Assert.IsTrue (file.transferComplete);
-            Assert.IsTrue (file.success);
+            ClassicAssert.IsTrue (receiver.finishedCalled);
+            ClassicAssert.AreEqual (1000, receiver.recvdBytes);
+            ClassicAssert.AreEqual (1, receiver.lastSection);
+            ClassicAssert.IsTrue (file.transferComplete);
+            ClassicAssert.IsTrue (file.success);
 
             for (int i = 0; i < 1000; i++) {
-                Assert.AreEqual (receiver.recvBuffer [i], (byte)i);
+                ClassicAssert.AreEqual (receiver.recvBuffer [i], (byte)i);
             }
 
             con.Close ();
@@ -1961,18 +1961,18 @@ namespace tests
             con.SendFile (1, 30000, NameOfFile.TRANSPARENT_FILE, file);
 
             Thread.Sleep (3000);
-            Assert.IsTrue (receiver.finishedCalled);
-            Assert.AreEqual (2000, receiver.recvdBytes);
-            Assert.AreEqual (2, receiver.lastSection);
-            Assert.IsTrue (file.transferComplete);
-            Assert.IsTrue (file.success);
+            ClassicAssert.IsTrue (receiver.finishedCalled);
+            ClassicAssert.AreEqual (2000, receiver.recvdBytes);
+            ClassicAssert.AreEqual (2, receiver.lastSection);
+            ClassicAssert.IsTrue (file.transferComplete);
+            ClassicAssert.IsTrue (file.success);
 
             for (int i = 0; i < 1000; i++) {
-                Assert.AreEqual (receiver.recvBuffer [i], (byte)i);
+                ClassicAssert.AreEqual (receiver.recvBuffer [i], (byte)i);
             }
 
             for (int i = 0; i < 1000; i++) {
-                Assert.AreEqual (receiver.recvBuffer [i + 1000], (byte)(i * 2));
+                ClassicAssert.AreEqual (receiver.recvBuffer [i + 1000], (byte)(i * 2));
             }
 
             con.Close ();
@@ -2011,12 +2011,12 @@ namespace tests
 
             Thread.Sleep (1000);
 
-            Assert.IsTrue (file.transferComplete);
-            Assert.IsFalse (file.success);
+            ClassicAssert.IsTrue (file.transferComplete);
+            ClassicAssert.IsFalse (file.success);
 
-            Assert.IsFalse (receiver.finishedCalled);
-            Assert.AreEqual (0, receiver.recvdBytes);
-            Assert.AreEqual (0, receiver.lastSection);
+            ClassicAssert.IsFalse (receiver.finishedCalled);
+            ClassicAssert.AreEqual (0, receiver.recvdBytes);
+            ClassicAssert.AreEqual (0, receiver.lastSection);
 
             con.Close ();
 
@@ -2030,9 +2030,9 @@ namespace tests
 
             SinglePointInformation copySi = new SinglePointInformation(si);
 
-            Assert.AreEqual(copySi.ObjectAddress, 101);
-            Assert.AreEqual(copySi.Value, true);
-            Assert.AreEqual(copySi.Quality.Invalid, false);
+            ClassicAssert.AreEqual(copySi.ObjectAddress, 101);
+            ClassicAssert.AreEqual(copySi.Value, true);
+            ClassicAssert.AreEqual(copySi.Quality.Invalid, false);
 
             CP56Time2a time = new CP56Time2a(DateTime.Now);
 
@@ -2040,18 +2040,18 @@ namespace tests
 
             copySi = new SinglePointInformation(siWithTs);
 
-            Assert.AreEqual(copySi.ObjectAddress, 102);
-            Assert.AreEqual(copySi.Value, false);
-            Assert.AreEqual(copySi.Quality.Invalid, true);
+            ClassicAssert.AreEqual(copySi.ObjectAddress, 102);
+            ClassicAssert.AreEqual(copySi.Value, false);
+            ClassicAssert.AreEqual(copySi.Quality.Invalid, true);
 
             copySi = new SinglePointWithCP56Time2a(siWithTs);
 
-            Assert.AreEqual(copySi.ObjectAddress, 102);
-            Assert.AreEqual(copySi.Value, false);
-            Assert.AreEqual(copySi.Quality.Invalid, true);
+            ClassicAssert.AreEqual(copySi.ObjectAddress, 102);
+            ClassicAssert.AreEqual(copySi.Value, false);
+            ClassicAssert.AreEqual(copySi.Quality.Invalid, true);
 
-            Assert.AreNotSame(((SinglePointWithCP56Time2a)copySi).Timestamp, time);
-            Assert.AreEqual(((SinglePointWithCP56Time2a)copySi).Timestamp, time);
+            ClassicAssert.AreNotSame(((SinglePointWithCP56Time2a)copySi).Timestamp, time);
+            ClassicAssert.AreEqual(((SinglePointWithCP56Time2a)copySi).Timestamp, time);
 
             PackedSinglePointWithSCD packedScd = new PackedSinglePointWithSCD(103, new StatusAndStatusChangeDetection(), QualityDescriptor.INVALID());
 
@@ -2060,11 +2060,11 @@ namespace tests
 
             PackedSinglePointWithSCD packedScdCopy = new PackedSinglePointWithSCD(packedScd);
 
-            Assert.AreEqual(packedScdCopy.ObjectAddress, 103);
-            Assert.AreEqual(packedScdCopy.SCD.CD(0), false);
-            Assert.AreEqual(packedScdCopy.SCD.CD(1), true);
-            Assert.AreEqual(packedScdCopy.SCD.CD(7), true);
-            Assert.AreEqual(packedScdCopy.QDS.Invalid, true);
+            ClassicAssert.AreEqual(packedScdCopy.ObjectAddress, 103);
+            ClassicAssert.AreEqual(packedScdCopy.SCD.CD(0), false);
+            ClassicAssert.AreEqual(packedScdCopy.SCD.CD(1), true);
+            ClassicAssert.AreEqual(packedScdCopy.SCD.CD(7), true);
+            ClassicAssert.AreEqual(packedScdCopy.QDS.Invalid, true);
 
             BinaryCounterReading bcr = new BinaryCounterReading();
             bcr.Value = 1234;
@@ -2075,19 +2075,19 @@ namespace tests
 
             IntegratedTotals integratedTotalsCopy = new IntegratedTotals(integratedTotalsOriginal);
 
-            Assert.AreEqual(integratedTotalsCopy.ObjectAddress, 104);
-            Assert.AreNotSame(integratedTotalsOriginal.BCR, integratedTotalsCopy.BCR);
-            Assert.AreEqual(integratedTotalsOriginal.BCR.Value, integratedTotalsCopy.BCR.Value);
-            Assert.AreEqual(integratedTotalsOriginal.BCR.Invalid, integratedTotalsCopy.BCR.Invalid);
-            Assert.AreEqual(integratedTotalsOriginal.BCR.SequenceNumber, integratedTotalsCopy.BCR.SequenceNumber);
+            ClassicAssert.AreEqual(integratedTotalsCopy.ObjectAddress, 104);
+            ClassicAssert.AreNotSame(integratedTotalsOriginal.BCR, integratedTotalsCopy.BCR);
+            ClassicAssert.AreEqual(integratedTotalsOriginal.BCR.Value, integratedTotalsCopy.BCR.Value);
+            ClassicAssert.AreEqual(integratedTotalsOriginal.BCR.Invalid, integratedTotalsCopy.BCR.Invalid);
+            ClassicAssert.AreEqual(integratedTotalsOriginal.BCR.SequenceNumber, integratedTotalsCopy.BCR.SequenceNumber);
 
             IntegratedTotalsWithCP56Time2a integratedTotalsWithCP56Copy = new IntegratedTotalsWithCP56Time2a(integratedTotalsOriginal);
 
-            Assert.AreEqual(integratedTotalsWithCP56Copy.ObjectAddress, 104);
-            Assert.AreNotSame(integratedTotalsOriginal.BCR, integratedTotalsWithCP56Copy.BCR);
-            Assert.AreEqual(integratedTotalsOriginal.BCR.Value, integratedTotalsWithCP56Copy.BCR.Value);
-            Assert.AreEqual(integratedTotalsOriginal.BCR.Invalid, integratedTotalsWithCP56Copy.BCR.Invalid);
-            Assert.AreEqual(integratedTotalsOriginal.BCR.SequenceNumber, integratedTotalsWithCP56Copy.BCR.SequenceNumber);
+            ClassicAssert.AreEqual(integratedTotalsWithCP56Copy.ObjectAddress, 104);
+            ClassicAssert.AreNotSame(integratedTotalsOriginal.BCR, integratedTotalsWithCP56Copy.BCR);
+            ClassicAssert.AreEqual(integratedTotalsOriginal.BCR.Value, integratedTotalsWithCP56Copy.BCR.Value);
+            ClassicAssert.AreEqual(integratedTotalsOriginal.BCR.Invalid, integratedTotalsWithCP56Copy.BCR.Invalid);
+            ClassicAssert.AreEqual(integratedTotalsOriginal.BCR.SequenceNumber, integratedTotalsWithCP56Copy.BCR.SequenceNumber);
         }
 
         [Test()]
@@ -2146,9 +2146,9 @@ namespace tests
                     waitTime = 1000;
 
                     if(enqueuedMessage == server.MaxQueueSize)
-                        Assert.AreEqual(server.MaxQueueSize, numberOfQueueEntries);
+                        ClassicAssert.AreEqual(server.MaxQueueSize, numberOfQueueEntries);
                     else
-                        Assert.AreEqual(enqueuedMessage, numberOfQueueEntries);
+                        ClassicAssert.AreEqual(enqueuedMessage, numberOfQueueEntries);
 
                     maxLoop++;
                 }
@@ -2230,9 +2230,9 @@ namespace tests
                     Console.WriteLine($"Number of queue entries: {numberOfQueueEntries}");
                     waitTime = 1000;
                     if (enqueuedMessage == server.MaxQueueSize)
-                        Assert.AreEqual(server.MaxQueueSize, numberOfQueueEntries);
+                        ClassicAssert.AreEqual(server.MaxQueueSize, numberOfQueueEntries);
                     else
-                        Assert.AreEqual(enqueuedMessage, numberOfQueueEntries);
+                        ClassicAssert.AreEqual(enqueuedMessage, numberOfQueueEntries);
 
                     maxLoop++;
                 }
@@ -2305,9 +2305,9 @@ namespace tests
                     waitTime = 1000;
 
                     if (enqueuedMessage == server.MaxQueueSize)
-                        Assert.AreEqual(server.MaxQueueSize, numberOfQueueEntries);
+                        ClassicAssert.AreEqual(server.MaxQueueSize, numberOfQueueEntries);
                     else
-                        Assert.AreEqual(enqueuedMessage, numberOfQueueEntries);
+                        ClassicAssert.AreEqual(enqueuedMessage, numberOfQueueEntries);
 
                     maxLoop++;
                 }
