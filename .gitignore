@@ -1,0 +1,5 @@
+.idea/*
+/examples/*/obj/*
+/*/obj/*
+/examples/*/bin/*
+/*/bin/*
