@@ -108,7 +108,7 @@ namespace cs104_multi_client_server
 				SingleCommand sc = (SingleCommand)asdu.GetElement (0);
 
 				Console.WriteLine (sc.ToString ());
-			} 
+			}
 			else if (asdu.TypeId == TypeID.C_CS_NA_1){
 
 
@@ -131,8 +131,6 @@ namespace cs104_multi_client_server
 
 			Server server = new Server ();
 
-			//server.SetLocalAddress ("0.0.0.0");
-
 			server.ServerMode = ServerMode.CONNECTION_IS_REDUNDANCY_GROUP;
 			server.MaxQueueSize = 10;
 			server.MaxOpenConnections = 2;
@@ -148,26 +146,21 @@ namespace cs104_multi_client_server
 			server.Start ();
 
 			int waitTime = 1000;
-
-			while (running) {
-				Thread.Sleep(100);
-
-				if (waitTime > 0)
-					waitTime -= 100;
-				else {
-
-					ASDU newAsdu = new ASDU (server.GetApplicationLayerParameters(), CauseOfTransmission.PERIODIC, false, false, 2, 1, false);
-
-					newAsdu.AddInformationObject (new MeasuredValueScaled (110, -1, new QualityDescriptor ()));
-
-					server.EnqueueASDU (newAsdu);
-
-					waitTime = 1000;
-				}
-			}
-
+			var timer = new System.Timers.Timer(waitTime);
+			timer.Elapsed += (sender, e) => { PeriodicEventHandler(server); };
+			timer.Start();
 			Console.WriteLine ("Stop server");
+			Console.ReadLine();
 			server.Stop ();
+		}
+
+		static void PeriodicEventHandler(Server server)
+		{
+			ASDU newAsdu = new ASDU (server.GetApplicationLayerParameters(), CauseOfTransmission.PERIODIC, false, false, 2, 1, false);
+
+			newAsdu.AddInformationObject (new MeasuredValueScaled (110, -1, new QualityDescriptor ()));
+
+			server.EnqueueASDU (newAsdu);
 		}
 	}
 }

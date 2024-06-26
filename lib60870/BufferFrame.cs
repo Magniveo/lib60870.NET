@@ -19,14 +19,13 @@
  *  See COPYING file for the complete license text.
  */
 
-using System;
 
 namespace lib60870
 {
     /// <summary>
     /// Implementation of Frame to encode into a given byte array
     /// </summary>
-    internal class BufferFrame : Frame
+    public class BufferFrame : Frame
     {
         private byte[] buffer;
         private int startPos;
@@ -83,4 +82,3 @@ namespace lib60870
         }
     }
 }
-    

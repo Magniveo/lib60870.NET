@@ -70,7 +70,7 @@ namespace lib60870.CS101
             }
         }
 
-        internal SinglePointInformation(ApplicationLayerParameters parameters, byte[] msg, int startIndex, bool isSequence)
+        public SinglePointInformation(ApplicationLayerParameters parameters, byte[] msg, int startIndex, bool isSequence)
             : base(parameters, msg, startIndex, isSequence)
         {
             if (!isSequence)
@@ -149,7 +149,7 @@ namespace lib60870.CS101
             }
         }
 
-        internal SinglePointWithCP24Time2a(ApplicationLayerParameters parameters, byte[] msg, int startIndex, bool isSequence)
+        public SinglePointWithCP24Time2a(ApplicationLayerParameters parameters, byte[] msg, int startIndex, bool isSequence)
             : base(parameters, msg, startIndex, isSequence)
         {
             if (!isSequence)
@@ -157,7 +157,7 @@ namespace lib60870.CS101
 
             if ((msg.Length - startIndex) < GetEncodedSize())
                 throw new ASDUParsingException("Message too small");
-		
+
             startIndex += 1; /* skip SIQ */
 
             /* parse CP24Time2a (time stamp) */
@@ -220,7 +220,7 @@ namespace lib60870.CS101
             }
         }
 
-        internal SinglePointWithCP56Time2a(ApplicationLayerParameters parameters, byte[] msg, int startIndex, bool isSequence)
+        public SinglePointWithCP56Time2a(ApplicationLayerParameters parameters, byte[] msg, int startIndex, bool isSequence)
             : base(parameters, msg, startIndex, isSequence)
         {
             if (!isSequence)

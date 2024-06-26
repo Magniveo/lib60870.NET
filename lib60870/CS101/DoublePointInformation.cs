@@ -96,7 +96,7 @@ namespace lib60870.CS101
             this.quality = new QualityDescriptor(original.quality);
         }
 
-        internal DoublePointInformation(ApplicationLayerParameters parameters, byte[] msg, int startIndex, bool isSequence)
+        public DoublePointInformation(ApplicationLayerParameters parameters, byte[] msg, int startIndex, bool isSequence)
             : base(parameters, msg, startIndex, isSequence)
         {
             if (!isSequence)
@@ -173,7 +173,7 @@ namespace lib60870.CS101
             this.timestamp = new CP24Time2a(original.timestamp);
         }
 
-        internal DoublePointWithCP24Time2a(ApplicationLayerParameters parameters, byte[] msg, int startIndex, bool isSequence)
+        public DoublePointWithCP24Time2a(ApplicationLayerParameters parameters, byte[] msg, int startIndex, bool isSequence)
             : base(parameters, msg, startIndex, isSequence)
         {
             if (!isSequence)
@@ -244,7 +244,7 @@ namespace lib60870.CS101
             this.timestamp = new CP56Time2a(original.timestamp);
         }
 
-        internal DoublePointWithCP56Time2a(ApplicationLayerParameters parameters, byte[] msg, int startIndex, bool isSequence)
+        public DoublePointWithCP56Time2a(ApplicationLayerParameters parameters, byte[] msg, int startIndex, bool isSequence)
             : base(parameters, msg, startIndex, isSequence)
         {
             if (!isSequence)

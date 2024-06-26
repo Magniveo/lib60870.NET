@@ -176,7 +176,7 @@ namespace lib60870.CS101
             this.quality = new QualityDescriptor(original.quality);
         }
 
-        internal MeasuredValueNormalized(ApplicationLayerParameters parameters, byte[] msg, int startIndex, bool isSequence)
+        public MeasuredValueNormalized(ApplicationLayerParameters parameters, byte[] msg, int startIndex, bool isSequence)
             : base(parameters, msg, startIndex, isSequence)
         {
             if (!isSequence)
