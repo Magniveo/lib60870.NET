@@ -68,7 +68,7 @@ namespace lib60870.CS101
         {
             get
             {
-                return this.value;
+                return value;
             }
         }
 
@@ -78,22 +78,22 @@ namespace lib60870.CS101
         {
             get
             {
-                return this.quality;
+                return quality;
             }
         }
 
         public DoublePointInformation(int ioa, DoublePointValue value, QualityDescriptor quality)
             : base(ioa)
         {
-            this.value = value;
-            this.quality = quality;
+            value = value;
+            quality = quality;
         }
 
         public DoublePointInformation(DoublePointInformation original)
             : base(original.ObjectAddress)
         {
-            this.value = original.value;
-            this.quality = new QualityDescriptor(original.quality);
+            value = original.value;
+            quality = new QualityDescriptor(original.quality);
         }
 
         public DoublePointInformation(ApplicationLayerParameters parameters, byte[] msg, int startIndex, bool isSequence)
@@ -157,20 +157,20 @@ namespace lib60870.CS101
         {
             get
             {
-                return this.timestamp;
+                return timestamp;
             }
         }
 
         public DoublePointWithCP24Time2a(int ioa, DoublePointValue value, QualityDescriptor quality, CP24Time2a timestamp)
             : base(ioa, value, quality)
         {
-            this.timestamp = timestamp;
+            timestamp = timestamp;
         }
 
         public DoublePointWithCP24Time2a(DoublePointWithCP24Time2a original)
             : base(original)
         {
-            this.timestamp = new CP24Time2a(original.timestamp);
+            timestamp = new CP24Time2a(original.timestamp);
         }
 
         public DoublePointWithCP24Time2a(ApplicationLayerParameters parameters, byte[] msg, int startIndex, bool isSequence)
@@ -228,20 +228,20 @@ namespace lib60870.CS101
         {
             get
             {
-                return this.timestamp;
+                return timestamp;
             }
         }
 
         public DoublePointWithCP56Time2a(int ioa, DoublePointValue value, QualityDescriptor quality, CP56Time2a timestamp)
             : base(ioa, value, quality)
         {
-            this.timestamp = timestamp;
+            timestamp = timestamp;
         }
 
         public DoublePointWithCP56Time2a(DoublePointWithCP56Time2a original)
             : base(original)
         {
-            this.timestamp = new CP56Time2a(original.timestamp);
+            timestamp = new CP56Time2a(original.timestamp);
         }
 
         public DoublePointWithCP56Time2a(ApplicationLayerParameters parameters, byte[] msg, int startIndex, bool isSequence)
