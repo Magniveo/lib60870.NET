@@ -1,5 +1,5 @@
 # README lib60870.NET v2
-
+![example workflow](https://github.com/Magniveo/lib60870.NET/actions/workflows/main.yml/badge.svg)
 lib60870.NET library for IEC 60870-5 based protocols in C#
 
 The current implementation contains code for the IEC 60870-5-101/104 protocols only.
